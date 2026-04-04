@@ -13,11 +13,14 @@ exports.createFeedback = async (req, res) =>{
 }
 
 // Get all feedbacks
-exports.feedbacks = async(req,res) =>{
-    try {
-        const feedbacks = await Feedback.find().sort({createdAt: -1});
-        res.status(200).json({message:"Feedbacks retrieved successfully", feedbacks});
-    } catch (error) {
-        res.status(500).json({message:"failed to retrieve feedbacks", error: error.message});
-    }
-}
+exports.feedbacks = async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find().sort({ createdAt: -1 });
+    res.status(200).json(feedbacks); // ✅ FIXED
+  } catch (error) {
+    res.status(500).json({
+      message: "failed to retrieve feedbacks",
+      error: error.message
+    });
+  }
+};
