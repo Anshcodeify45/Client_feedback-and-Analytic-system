@@ -1,28 +1,33 @@
-import './App.css';
-import React, { useState, useEffect } from "react";
-import FeedbackList from './Components/FeedbackList';
-import FeedbackForm from './Components/FeedbackForm';
-import API_URL from "./config";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./Components/Login";
+import Register from "./Components/Register";
+import Dashboard from "./Components/Dashboard";
 
+// 🔐 Protected Route
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+  return token ? children : <Navigate to="/login" />;
+};
 
 function App() {
-    const [feedbacks, setFeedbacks] = useState([]);
-
-  const fetchFeedbacks = async () => {
-    const res = await fetch(`${API_URL}/feedback`);
-    const data = await res.json();
-    setFeedbacks(data);
-  };
-
-  useEffect(() => {
-    fetchFeedbacks();
-  }, []);
-
   return (
-    <div className="App">
-      <FeedbackForm refreshData={fetchFeedbacks}/>
-      <FeedbackList feedbacks={feedbacks}/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
