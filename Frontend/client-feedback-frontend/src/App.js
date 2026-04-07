@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Dashboard from "./Components/Dashboard";
-
+import FeedbackPage from "./Components/FeedbackPage";
 // 🔐 Protected Route
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -22,6 +22,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/feedback"
+          element={
+            <ProtectedRoute>
+              <FeedbackPage />
             </ProtectedRoute>
           }
         />
