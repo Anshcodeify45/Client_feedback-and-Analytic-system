@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../config";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -22,8 +23,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/register", form);
-
+      await axios.post(`${API_URL}/register`, form);
       alert("Registered Successfully ✅");
 
       navigate("/login"); // redirect to login

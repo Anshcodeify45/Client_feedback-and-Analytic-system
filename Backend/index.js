@@ -14,6 +14,9 @@ const feedbackRoutes = require("./Routes/FeedbackRoutes");
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api", authRoutes);
 
+// Serve React build
+app.use(express.static(path.join(process.cwd(), "build")));
+
 // Test route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the Client Feedback API!" });
